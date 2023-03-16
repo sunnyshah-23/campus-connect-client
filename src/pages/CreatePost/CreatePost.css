@@ -1,0 +1,14 @@
+.create-post {
+    margin-top: 10px;
+    padding: 20px;
+
+}
+
+.shareImgContainer {
+    margin: 15px;
+}
+
+.shareImgContainer img {
+    width: 200px;
+    height: 200px;
+}

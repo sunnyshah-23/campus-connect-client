@@ -1,0 +1,23 @@
+.navbar {
+    background-color: #004785 !important;
+    display: flex;
+    justify-content: space-between;
+    overflow-x: hidden;
+}
+
+.navbar .brand {
+    padding: 10px;
+}
+
+.navbar .right {
+    padding: 10px;
+}
+
+.navbar .right button {
+    margin-left: 10px;
+}
+
+.navbar a {
+    color: #ffffff !important;
+    text-decoration: none;
+}

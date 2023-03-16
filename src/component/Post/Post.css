@@ -1,0 +1,42 @@
+.post .row {
+    justify-content: center;
+}
+
+.card .header h5:hover {
+    color: #C2C2C2 !important;
+}
+
+.post {
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.card .header {
+    display: flex;
+    margin: 5px;
+}
+
+.card .header h5 {
+    margin-left: 5px;
+}
+
+.post .caption h6,
+.post .caption p {
+    text-align: left;
+    display: inline;
+}
+
+.post .comment-add input {
+    width: 100%;
+    border-top: none !important;
+    border-right: none !important;
+    border-left: none !important;
+    border-bottom: 1px solid black;
+    background-color: transparent !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+}

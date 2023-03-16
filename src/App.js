@@ -1,23 +1,55 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
+import Home from './pages/Home/Home';
+import Profile from './pages/Profile/Profile';
+import CreatePost from './pages/CreatePost/CreatePost';
+import { getTokenFromLocalStorage } from './lib/common';
+import { useContext, useEffect } from 'react';
+import axios from 'axios';
+import { AuthContext } from './context/AuthContext';
+import { BASE_URL } from "./lib/constant"
+
+
 
 function App() {
+  const { dispatch, isAuthenticated } = useContext(AuthContext)
+  const getUser = async () => {
+    let token = getTokenFromLocalStorage()
+    if (token) {
+      try {
+        const res = await axios.get(`${BASE_URL}/user/getUser`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        dispatch({ type: "LOGIN_SUCCESS", payload: res.data })
+      } catch (err) {
+        dispatch({ type: "LOGIN_FAILURE" })
+      }
+
+
+    } else {
+      dispatch({ type: "LOGIN_FAILURE" })
+    }
+  }
+  useEffect(() => {
+    getUser()
+  }, [])
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Router>
+        <Routes>
+          <Route exact path="/" element={<Home />}></Route>
+          <Route exact path="/login" element={isAuthenticated ? <Home /> : <Login />}></Route>
+          <Route exact path="/register" element={isAuthenticated ? <Home /> : <Register />}></Route>
+          <Route exact path="/profile/:username" element={isAuthenticated ? <Profile /> : <Login />}></Route>
+          <Route exact path="/create/post" element={<CreatePost />}></Route>
+
+        </Routes>
+      </Router>
     </div>
   );
 }

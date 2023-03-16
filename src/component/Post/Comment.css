@@ -1,0 +1,4 @@
+.post .comments h5,
+.post .comments p {
+    display: inline;
+}

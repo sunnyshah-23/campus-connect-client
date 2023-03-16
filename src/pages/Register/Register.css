@@ -1,0 +1,32 @@
+body.register {
+    background: rgb(19, 123, 170);
+    background: linear-gradient(90deg, rgba(19, 123, 170, 1) 53%, rgba(0, 212, 255, 1) 100%);
+}
+
+.register {
+    margin-top: 40px;
+    justify-content: center;
+}
+
+.register img {
+    width: 100%;
+}
+
+.register #register-card {
+    justify-content: center;
+}
+
+.register .card {
+    height: 600px;
+    background-color: #FCFCFC;
+    padding: 20px;
+    box-shadow: 1px 2px 2px;
+    border-radius: 10px;
+
+}
+
+@media (max-width: 576px) {
+    .register .card {
+        height: 750px;
+    }
+}
