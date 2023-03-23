@@ -11,6 +11,10 @@
     margin-bottom: 10px;
 }
 
+.post .card-body img {
+    height: 100%;
+}
+
 .card .header {
     display: flex;
     margin: 5px;

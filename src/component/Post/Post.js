@@ -10,6 +10,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { getTokenFromLocalStorage } from '../../lib/common';
+import ScrollToTopOnMount from "../../component/Scroll/ScrollToTopOnMount"
 function Post({ post, comment }) {
 
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
@@ -36,7 +37,7 @@ function Post({ post, comment }) {
             axios.put(`${BASE_URL}/post/like/` + post._id, {}, {
                 headers: {
                     Authorization: `Bearer ${token}`,
-                    'Access-Control-Allow-Origin': "*"
+
                 }
             });
         } catch (err) { }
@@ -49,6 +50,7 @@ function Post({ post, comment }) {
     }, [])
     return (
         <div className="post">
+            <ScrollToTopOnMount />
             <div className='row'>
                 <div className='col-md-7'>
                     <div className='card'>
@@ -56,11 +58,9 @@ function Post({ post, comment }) {
                             <AccountCircleIcon />
                             {isAuthenticated ? <NavLink to={`/profile/${user.username}`} className="username" style={() => { return { textDecoration: "none", color: "#000000" } }}><h5>{user.username}</h5></NavLink> : <NavLink to="/login" style={() => { return { textDecoration: "none", color: "#000000" } }}> <h5>{user.username}</h5></NavLink>}
                         </div>
-                        <div className='card-body'>
-                            <div>
-                                <img src={'http://localhost:9005/images/' + post.img} />
-                            </div>
+                        <img className='card-img-top' src={'http://localhost:9005/images/' + post.img} />
 
+                        <div className='card-body'>
                             {isAuthenticated ? isLiked ? <FavoriteIcon style={{ color: "red" }} onClick={likeHandler} /> : <FavoriteBorderIcon onClick={likeHandler} /> : <></>}
 
                             <h6>Likes: {like}</h6>

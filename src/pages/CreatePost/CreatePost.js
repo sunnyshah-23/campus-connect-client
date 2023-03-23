@@ -28,6 +28,11 @@ function CreatePost() {
             const filename = Date.now() + file.name
             data.append("name", filename)
             data.append("file", file)
+            const config = {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            };
             try {
                 await axios.post(`${BASE_URL}/upload`, data)
 
