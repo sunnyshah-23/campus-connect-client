@@ -1,6 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import img from "../../assets/doremon.png"
 import "./Post.css"
+import { format } from "timeago.js";
 import Comment from "./Comment"
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -12,26 +13,57 @@ import { AuthContext } from '../../context/AuthContext';
 import { getTokenFromLocalStorage } from '../../lib/common';
 import ScrollToTopOnMount from "../../component/Scroll/ScrollToTopOnMount"
 function Post({ post, comment }) {
-
+    const [postComment, setPostComment] = useState(comment)
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const token = getTokenFromLocalStorage()
-
+    const content = useRef()
     const [user, setUser] = useState({})
     const [like, setLike] = useState(post.likes.length);
     const [isLiked, setIsLiked] = useState(false);
     const { isAuthenticated, user: loggedInUser } = useContext(AuthContext);
-
-
     const getUser = async () => {
         const res = await axios.get(`${BASE_URL}/user?userId=${post.userId}`)
         setUser(res.data)
     }
+    console.log("postcomment", postComment)
     useEffect(() => {
 
         let loggeinUserid = loggedInUser?.user._id.toString()
         setIsLiked(post.likes.includes(loggeinUserid));
     }, [post.likes]);
+    const handleKeyPress = (e) => {
 
+        if (e.key === 'Enter') {
+            addComment()
+        }
+    }
+    const getUpdatedComment = async () => {
+        const res = await axios.get(`${BASE_URL}/comment/${post._id.toString()}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+
+            }
+        }).then((res) => {
+            console.log(res)
+            setPostComment(res.data)
+            console.log("updated", comment)
+        }).catch(err => console.log(err))
+    }
+    const addComment = async (e) => {
+
+        axios.post(`${BASE_URL}/comment`, { postId: post._id.toString(), author: user.username, comment: content.current.value },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+
+                }
+            })
+            .then((res) => {
+                content.current.value = ''
+                getUpdatedComment()
+            })
+            .catch((err) => console.log(err))
+    }
     const likeHandler = () => {
         try {
             axios.put(`${BASE_URL}/post/like/` + post._id, {}, {
@@ -56,7 +88,19 @@ function Post({ post, comment }) {
                     <div className='card'>
                         <div className='header'>
                             <AccountCircleIcon />
-                            {isAuthenticated ? <NavLink to={`/profile/${user.username}`} className="username" style={() => { return { textDecoration: "none", color: "#000000" } }}><h5>{user.username}</h5></NavLink> : <NavLink to="/login" style={() => { return { textDecoration: "none", color: "#000000" } }}> <h5>{user.username}</h5></NavLink>}
+                            {isAuthenticated ? (
+                                <div>
+                                    <NavLink to={`/profile/${user.username}`} className="username" style={{ textDecoration: "none", color: "#000000", display: "flex" }}>
+                                        <h5>{user.username}</h5> <span className="dot">.</span>  <span className="postDate">{format(post.createdAt)}</span>
+                                    </NavLink>
+                                </div>
+                            ) : (
+                                <div>
+                                    <NavLink to="/login" style={{ textDecoration: "none", color: "#000000", display: "flex" }}>
+                                        <h5>{user.username}</h5>  <span className="dot">.</span> <span className="postDate">{format(post.createdAt)}</span>
+                                    </NavLink>
+                                </div>
+                            )}
                         </div>
                         <img className='card-img-top' src={'http://localhost:9005/images/' + post.img} />
 
@@ -66,18 +110,22 @@ function Post({ post, comment }) {
                             <h6>Likes: {like}</h6>
                             <div className="caption">
                                 <h6>{user.username}</h6>
+
                                 <p>{post.desc}</p>
                             </div>
                             {isAuthenticated && (
                                 <div className='comment-add mt-2'>
-                                    <input type="text" placeholder='Add a comment..' />
+                                    <input type="text" placeholder='Add a comment..' ref={content} onKeyDown={handleKeyPress} />
+                                    {/* <button onClick={(e) => addComment(e)}>Add</button> */}
                                 </div>
                             )}
 
                             <div class="row">
-                                <Comment />
-                                <Comment />
-                                <Comment />
+                                {postComment.map((c) => (
+                                    <Comment postComment={c} />
+
+                                ))}
+
 
                             </div>
 

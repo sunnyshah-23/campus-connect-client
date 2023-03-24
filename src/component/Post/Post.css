@@ -11,6 +11,15 @@
     margin-bottom: 10px;
 }
 
+.postDate {
+    color: #8E8E8E;
+}
+
+.dot {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
 .post .card-body img {
     height: 100%;
 }

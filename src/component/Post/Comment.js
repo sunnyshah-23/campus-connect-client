@@ -1,10 +1,12 @@
 import React from 'react'
 import "./Comment.css"
-function Comment() {
+import { useNavigate } from 'react-router-dom'
+function Comment({ postComment }) {
+    const navigate = useNavigate()
     return (
         <div className="comments">
-            <h5>username:</h5>
-            <p>I love this cartoon</p>
+            <h6 onClick={() => navigate(`/profile/${postComment.author}`)}>{postComment.author}</h6>&nbsp;
+            <p>{postComment.comment}</p>
         </div>
     )
 }
