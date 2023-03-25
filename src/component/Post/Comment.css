@@ -2,3 +2,7 @@
 .post .comments p {
     display: inline;
 }
+
+.comments h6:hover {
+    cursor: pointer;
+}
