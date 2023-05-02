@@ -16,3 +16,7 @@
     width: 100px;
     height: 100px;
 }
+
+.following .row {
+    display: flex !important;
+}

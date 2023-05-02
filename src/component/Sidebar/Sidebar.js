@@ -38,11 +38,6 @@ function Sidebar() {
                         <span className="sidebarListItemText">Groups</span>
                     </li>
 
-
-                    <li className="sidebarListItem">
-                        <WorkOutline className="sidebarIcon" />
-                        <span className="sidebarListItemText">Jobs</span>
-                    </li>
                     <NavLink target="_blank" style={{ textDecoration: "none", color: "#000000" }} to="https://www.newhaven.edu/events/">
                         <li className="sidebarListItem">
                             <Event className="sidebarIcon" />
@@ -50,10 +45,12 @@ function Sidebar() {
                         </li>
                     </NavLink>
 
-                    <li className="sidebarListItem">
-                        <School className="sidebarIcon" />
-                        <span className="sidebarListItemText">Courses</span>
-                    </li>
+                    <NavLink target="_blank" style={{ textDecoration: "none", color: "#000000" }} to="https://www.newhaven.edu/admissions/graduate/programs.php">
+                        <li className="sidebarListItem">
+                            <School className="sidebarIcon" />
+                            <span className="sidebarListItemText">Courses</span>
+                        </li>
+                    </NavLink>
                 </ul>
 
                 <hr className="sidebarHr" />

@@ -7,10 +7,10 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 function Followers({ friends }) {
     console.log("followers", friends.username)
     return (
-        <div className='col-md-3 followers'>
+        <div className='followerss'>
             <div className='detail'>
                 {friends.profilePicture ? (
-                    <img src={"http://localhost:9006/images/" + friends.profilePicture} />
+                    <img src={"https://unh-server.onrender.com/images/" + friends.profilePicture} />
 
                 ) : (
                     <AccountCircleIcon className='profilepic' style={{ fontSize: "40px" }} />

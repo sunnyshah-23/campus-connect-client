@@ -24,27 +24,6 @@ function Rightbar({ user }) {
         loggedInUser.user.followings.includes(user._id)
     );
 
-    const cancelProfile = () => {
-        setFile(null)
-    }
-    const updateProfile = async (e) => {
-        e.preventDefault()
-        if (file) {
-            const data = new FormData()
-            const filename = Date.now() + "profile" + file.name
-            data.append("name", filename)
-            data.append("file", file)
-            try {
-                await axios.post(`${BASE_URL}/upload`, data)
-
-            } catch (err) {
-                setPostError(err)
-            }
-
-        }
-
-    }
-
     const handleClick = async () => {
         try {
             if (followed) {
@@ -71,11 +50,13 @@ function Rightbar({ user }) {
         }
     }
     const getFriends = async () => {
+        console.log("getfriends")
         const res = await axios.get(`${BASE_URL}/user/friends/` + user._id, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
+        console.log(res)
         setFollowings(res.data.friendList)
         setFollowers(res.data.followersList)
     }
@@ -86,6 +67,7 @@ function Rightbar({ user }) {
         getFriends()
 
     }, [user, followed])
+
     return (
         <div className='rightbar'>
 
@@ -124,29 +106,30 @@ function Rightbar({ user }) {
                     <b>Origin:</b>{user.origin}<br />
                     <b>City:</b> {user.city}
                 </div>
-                <div className='followers'>
-                    <b>Followers:{followers.length}</b>
-                    <div className='row'>
-                        {followers.length > 0 && (
-                            <div>
-                                {followers.map((friend) => (<Followers key={friend._id} friends={friend} />))}
-                            </div>
-                        )}
+            </div>
+            <div className='followers'>
+                <b>Followers:{followers.length}</b>
+                <div className='row'>
+                    {followers.length > 0 && (
+                        <>
+                            {followers.map((friend) => (<Followers key={friend._id} friends={friend} />))}
+                        </>
+                    )}
 
-                    </div>
-                </div>
-                <div className='following'>
-                    <b>Following:{followings.length}</b>
-                    <div className='row'>
-                        {followings.length > 0 && (
-                            <div>
-                                {followings.map((friend) => (<Followers key={friend._id} friends={friend} />))}
-                            </div>
-                        )}
-
-                    </div>
                 </div>
             </div>
+            <div className='following'>
+                <b>Following:{followings.length}</b>
+                <div className='row'>
+                    {followings.length > 0 && (
+                        <>
+                            {followings.map((friend) => (<Followers key={friend._id} friends={friend} />))}
+                        </>
+                    )}
+
+                </div>
+            </div>
+            {/* </div> */}
         </div>
     )
 }
