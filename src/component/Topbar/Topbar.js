@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import "./Topbar.css"
 import AddIcon from '@mui/icons-material/Add';
 import { NavLink, useNavigate } from 'react-router-dom';
@@ -8,6 +8,9 @@ import { logout } from '../../apiCalls';
 function Topbar() {
     const { dispatch, isAuthenticated, user } = useContext(AuthContext)
     const navigate = useNavigate()
+    useEffect(() => {
+
+    }, [user])
     return (
         <div class="navbar">
             <div class="brand">
@@ -15,10 +18,16 @@ function Topbar() {
             </div>
             <div className='right'>
                 {isAuthenticated && <NavLink to="/create/post"><AddIcon style={{ color: "#ffffff", fontSize: 30 }} /></NavLink>}
-                {isAuthenticated && <NavLink to={`/profile/${user?.user?.username}`}><AccountCircleIcon style={{ fontSize: 40 }} /></NavLink>}
+                {isAuthenticated && <NavLink to={`/profile/${user?.user?.username}`}>{user?.user?.profilePicture ? (
+
+                    <img src={'http://3.19.255.76:9006/images/' + user?.user.profilePicture} />
+
+                ) : (
+                    <AccountCircleIcon style={{ fontSize: 40 }} />
+                )}</NavLink>}
                 {isAuthenticated ? <button className='btn btn-primary' onClick={(e) => logout(e, dispatch, navigate)}>Logout</button> : <button className="btn btn-primary" onClick={() => navigate("/login")}>Log In</button>}
             </div>
-        </div>
+        </div >
     )
 }
 

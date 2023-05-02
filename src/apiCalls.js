@@ -20,16 +20,26 @@ export const loginCall = async (userCredential, dispatch, navigate) => {
 }
 
 export const getUser = async (token, dispatch) => {
-    console.log("getUser", token)
+
     try {
         const res = await axios.get("http://localhost:9005/api/user/getUser", {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
+        console.log("getuser", res.data)
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data })
     } catch (err) {
         dispatch({ type: "LOGIN_FAILURE" })
+    }
+}
+
+export const updateUser = async (dispatch, user) => {
+    try {
+        console.log("userupdate", user)
+        dispatch({ type: "UPDATE_USER", payload: user })
+    } catch (err) {
+        dispatch({ type: "UPDATE_FAILURE" })
     }
 }
 

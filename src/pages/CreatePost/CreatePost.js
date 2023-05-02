@@ -21,7 +21,8 @@ function CreatePost() {
         e.preventDefault()
         const Post = {
             userId: user.user._id,
-            desc: desc.current.value
+            desc: desc.current.value,
+            link: link.current.value
         }
         if (file) {
             const data = new FormData()
@@ -95,7 +96,7 @@ function CreatePost() {
                                 </div>
                                 <div className="col-md-7">
                                     <label for="exampleFormControlInput1" className="form-label">Link</label>
-                                    <input className="form-control" placeholder="Place your research/project link here" ref={link} />
+                                    <input className="form-control" required placeholder="Place your research/project link here" ref={link} />
                                 </div>
                                 {/* <div className="col-md-7">
                                 <label for="exampleFormControlInput1" className="form-label mt-3">Post Category:</label>

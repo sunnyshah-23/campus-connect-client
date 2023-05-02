@@ -11,6 +11,7 @@ import { useContext, useEffect } from 'react';
 import axios from 'axios';
 import { AuthContext } from './context/AuthContext';
 import { BASE_URL } from "./lib/constant"
+import AccountEdit from './pages/AccountEdit/AccountEdit';
 
 
 
@@ -47,6 +48,8 @@ function App() {
           <Route exact path="/register" element={isAuthenticated ? <Home /> : <Register />}></Route>
           <Route exact path="/profile/:username" element={isAuthenticated ? <Profile /> : <Login />}></Route>
           <Route exact path="/create/post" element={<CreatePost />}></Route>
+          <Route exact path="/account/edit" element={isAuthenticated ? <AccountEdit /> : <Login />}></Route>
+
 
         </Routes>
       </Router>

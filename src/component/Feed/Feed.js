@@ -8,35 +8,44 @@ import "./Feed.css"
 
 function Feed({ username }) {
     const [posts, setPosts] = useState([])
-    const [comments, setComments] = useState([])
     const token = getTokenFromLocalStorage()
-    const getComments = async () => {
-        try {
-            const res = await axios.get(`${BASE_URL}/comment`, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            })
+    const { isAuthenticated, user: loggedInUser } = useContext(AuthContext);
 
-            setComments(res.data)
 
-        }
-        catch (err) {
-            console.log(err)
-        }
-    }
     const getPost = async () => {
         try {
-            const res = username ? await axios.get(`${BASE_URL}/post/profile/` + username, {
-                headers: {
-                    'Access-Control-Allow-Origin': "*"
-                }
-            }) : await axios.get(`${BASE_URL}/post/timeline`, {
-                headers: {
-                    'Access-Control-Allow-Origin': "*",
-                    'Cross-Origin-Resource-Policy': 'same-site'
-                }
-            })
+            let res = null
+
+            if (username) {
+                console.log("username")
+                res = await axios.get(`${BASE_URL}/post/profile/` + username, {
+                    headers: {
+                        'Access-Control-Allow-Origin': "*"
+                    }
+                })
+            }
+            else if (isAuthenticated) {
+                console.log("isauth")
+                res = await axios.get(`${BASE_URL}/post/filter`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    }
+                })
+            }
+            else {
+
+                res = await axios.get(`${BASE_URL}/post/timeline`)
+            }
+            // const res = username ? await axios.get(`${BASE_URL}/post/profile/` + username, {
+            //     headers: {
+            //         'Access-Control-Allow-Origin': "*"
+            //     }
+            // }) : await axios.get(`${BASE_URL}/post/timeline`, {
+            //     headers: {
+            //         'Access-Control-Allow-Origin': "*",
+            //         'Cross-Origin-Resource-Policy': 'same-site'
+            //     }
+            // })
             setPosts(res.data)
 
         } catch (err) {
@@ -45,8 +54,8 @@ function Feed({ username }) {
     }
 
     useEffect(() => {
+
         getPost()
-        getComments()
     }, [username])
     return (
         <div className='feed'>
@@ -55,11 +64,8 @@ function Feed({ username }) {
                     <div>
                         {posts.map((p) => (
 
-                            <Post key={p._id} post={p} comment={comments.filter(c => c.postId == p._id.toString())} />
-                            // <>
-                            //     {p._id.toString() == comments[0].postId && <h1>match found</h1>}
+                            <Post key={p._id} post={p} />
 
-                            // </>
                         ))}
                     </div>
                 ) : <h3>No posts yet</h3>}

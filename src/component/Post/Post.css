@@ -2,6 +2,12 @@
     justify-content: center;
 }
 
+.card .header img {
+    border-radius: 50%;
+    height: 40px;
+    width: 50px;
+}
+
 .card .header h5:hover {
     color: #C2C2C2 !important;
 }

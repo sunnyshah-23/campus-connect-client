@@ -12,8 +12,9 @@ import { NavLink } from 'react-router-dom';
 import { AuthContext } from '../../context/AuthContext';
 import { getTokenFromLocalStorage } from '../../lib/common';
 import ScrollToTopOnMount from "../../component/Scroll/ScrollToTopOnMount"
-function Post({ post, comment }) {
-    const [postComment, setPostComment] = useState(comment)
+function Post({ post }) {
+
+    const [postComment, setPostComment] = useState([])
     const PF = process.env.REACT_APP_PUBLIC_FOLDER;
     const token = getTokenFromLocalStorage()
     const content = useRef()
@@ -25,7 +26,7 @@ function Post({ post, comment }) {
         const res = await axios.get(`${BASE_URL}/user?userId=${post.userId}`)
         setUser(res.data)
     }
-    console.log("postcomment", postComment)
+
     useEffect(() => {
 
         let loggeinUserid = loggedInUser?.user._id.toString()
@@ -46,12 +47,12 @@ function Post({ post, comment }) {
         }).then((res) => {
             console.log(res)
             setPostComment(res.data)
-            console.log("updated", comment)
+
         }).catch(err => console.log(err))
     }
     const addComment = async (e) => {
 
-        axios.post(`${BASE_URL}/comment`, { postId: post._id.toString(), author: user.username, comment: content.current.value },
+        axios.post(`${BASE_URL}/comment`, { postId: post._id.toString(), author: loggedInUser?.user.username, comment: content.current.value },
             {
                 headers: {
                     Authorization: `Bearer ${token}`,
@@ -79,6 +80,7 @@ function Post({ post, comment }) {
 
     useEffect(() => {
         getUser()
+        getUpdatedComment()
     }, [])
     return (
         <div className="post">
@@ -87,7 +89,12 @@ function Post({ post, comment }) {
                 <div className='col-md-7'>
                     <div className='card'>
                         <div className='header'>
-                            <AccountCircleIcon />
+
+                            {user.profilePicture ? (
+                                <img src={'http://3.19.255.76:9006/images/' + user.profilePicture} />
+                            ) : (
+                                <AccountCircleIcon />
+                            )}
                             {isAuthenticated ? (
                                 <div>
                                     <NavLink to={`/profile/${user.username}`} className="username" style={{ textDecoration: "none", color: "#000000", display: "flex" }}>
@@ -102,7 +109,7 @@ function Post({ post, comment }) {
                                 </div>
                             )}
                         </div>
-                        <img className='card-img-top' src={'http://localhost:9005/images/' + post.img} />
+                        <NavLink target="_blank" to={post?.link}><img className='card-img-top' src={'http://3.19.255.76:9006/images/' + post.img} /></NavLink>
 
                         <div className='card-body'>
                             {isAuthenticated ? isLiked ? <FavoriteIcon style={{ color: "red" }} onClick={likeHandler} /> : <FavoriteBorderIcon onClick={likeHandler} /> : <></>}
@@ -120,7 +127,7 @@ function Post({ post, comment }) {
                                 </div>
                             )}
 
-                            <div class="row">
+                            <div className="row">
                                 {postComment.map((c) => (
                                     <Comment postComment={c} />
 

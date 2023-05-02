@@ -2,6 +2,7 @@ import React from 'react'
 import "./Comment.css"
 import { useNavigate } from 'react-router-dom'
 function Comment({ postComment }) {
+    console.log("postcomment", postComment)
     const navigate = useNavigate()
     return (
         <div className="comments">

@@ -68,6 +68,14 @@ const AuthReducer = (state, action) => {
                     ),
                 },
             };
+        case "UPDATE_USER":
+            console.log("reducer")
+            return {
+                user: action.payload,
+                isFetching: false,
+                error: false,
+                isAuthenticated: true,
+            };
         default:
             return state;
 

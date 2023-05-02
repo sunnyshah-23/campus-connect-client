@@ -21,3 +21,9 @@
     color: #ffffff !important;
     text-decoration: none;
 }
+
+.right img {
+    border-radius: 50%;
+    height: 70px;
+    width: 80px;
+}

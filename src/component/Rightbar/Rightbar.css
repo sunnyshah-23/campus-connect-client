@@ -1,3 +1,18 @@
 .rightbar .details {
     margin-top: 20px;
 }
+
+.profilepic:hover {
+    cursor: pointer;
+}
+
+.edit_profile {
+    margin-top: 15px;
+
+}
+
+.edit_profile .profilepicutre {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}

@@ -5,9 +5,17 @@ import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../../context/AuthContext'
 import { getTokenFromLocalStorage } from '../../lib/common'
 import { BASE_URL } from '../../lib/constant'
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useNavigate } from 'react-router-dom'
 import Followers from '../Followers/Followers'
 import "./Rightbar.css"
+import { NavLink } from 'react-router-dom';
+
+
 function Rightbar({ user }) {
+    const [file, setFile] = useState(null)
+    const { navigate } = useNavigate()
+    const [postError, setPostError] = useState("")
     const token = getTokenFromLocalStorage()
     const [followings, setFollowings] = useState([])
     const [followers, setFollowers] = useState([])
@@ -16,6 +24,26 @@ function Rightbar({ user }) {
         loggedInUser.user.followings.includes(user._id)
     );
 
+    const cancelProfile = () => {
+        setFile(null)
+    }
+    const updateProfile = async (e) => {
+        e.preventDefault()
+        if (file) {
+            const data = new FormData()
+            const filename = Date.now() + "profile" + file.name
+            data.append("name", filename)
+            data.append("file", file)
+            try {
+                await axios.post(`${BASE_URL}/upload`, data)
+
+            } catch (err) {
+                setPostError(err)
+            }
+
+        }
+
+    }
 
     const handleClick = async () => {
         try {
@@ -60,7 +88,30 @@ function Rightbar({ user }) {
     }, [user, followed])
     return (
         <div className='rightbar'>
+
+
+            {user.username === loggedInUser.user.username && (
+                <div className='edit_profile row'>
+                    <div className='col-md-4'>
+                        {user.profilePicture ? (
+                            <img className="profilepicutre" src={'http://3.19.255.76:9006/images/' + user.profilePicture} />
+                        ) : (
+
+                            <AccountCircleIcon className='profilepic' style={{ fontSize: "70px" }} />
+                        )}
+                    </div>
+                    <div className='col-md-4'>
+                        {loggedInUser?.user.username}
+                    </div>
+                    <div className='col-md-4'>
+                        <NavLink to="/account/edit"> <button className='btn btn-primary' >Edit</button></NavLink>
+                    </div>
+
+                </div>
+            )}
             <div className="row details">
+
+
                 <div className='col-md-6'>
 
                     {loggedInUser.user.username !== user.username && (
@@ -69,7 +120,9 @@ function Rightbar({ user }) {
                 </div>
                 <div className='col-md-12'>
                     <b>Email:</b>{user.email}<br />
-                    <b>Major:</b> {user.major}
+                    <b>Major:</b> {user.major}<br />
+                    <b>Origin:</b>{user.origin}<br />
+                    <b>City:</b> {user.city}
                 </div>
                 <div className='followers'>
                     <b>Followers:{followers.length}</b>
