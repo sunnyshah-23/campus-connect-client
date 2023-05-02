@@ -103,7 +103,7 @@ function AccountEdit() {
                                     {file ? (
                                         <img src={URL.createObjectURL(file)} />
                                     ) : (
-                                        <img src={'http://3.19.255.76:9006/images/' + loggedInUser?.user.profilePicture} />
+                                        <img src={'https://unh-server.onrender.com/images/' + loggedInUser?.user.profilePicture} />
                                     )}
                                 </label>
                                 <input

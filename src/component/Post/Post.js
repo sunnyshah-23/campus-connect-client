@@ -91,7 +91,7 @@ function Post({ post }) {
                         <div className='header'>
 
                             {user.profilePicture ? (
-                                <img src={'http://3.19.255.76:9006/images/' + user.profilePicture} />
+                                <img src={'https://unh-server.onrender.com/images/' + user.profilePicture} />
                             ) : (
                                 <AccountCircleIcon />
                             )}
@@ -109,7 +109,7 @@ function Post({ post }) {
                                 </div>
                             )}
                         </div>
-                        <NavLink target="_blank" to={post?.link}><img className='card-img-top' src={'http://3.19.255.76:9006/images/' + post.img} /></NavLink>
+                        <NavLink target="_blank" to={post?.link}><img className='card-img-top' src={'https://unh-server.onrender.com/images/' + post.img} /></NavLink>
 
                         <div className='card-body'>
                             {isAuthenticated ? isLiked ? <FavoriteIcon style={{ color: "red" }} onClick={likeHandler} /> : <FavoriteBorderIcon onClick={likeHandler} /> : <></>}
