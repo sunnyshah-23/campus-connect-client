@@ -36,7 +36,6 @@ const AuthReducer = (state, action) => {
                 isAuthenticated: false,
             }
         case "REGISTER_FAILURE":
-            console.log("failure")
             return {
                 user: null,
                 isFetching: false,
@@ -69,7 +68,6 @@ const AuthReducer = (state, action) => {
                 },
             };
         case "UPDATE_USER":
-            console.log("reducer")
             return {
                 user: action.payload,
                 isFetching: false,
