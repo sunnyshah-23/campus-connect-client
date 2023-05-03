@@ -7,6 +7,8 @@ import "./Login.css"
 import logo from "../../assets/unh.jpeg"
 import { NavLink } from 'react-router-dom'
 import { useNavigate } from "react-router-dom"
+import CircularProgress from '@mui/material/CircularProgress';
+
 function Login() {
     const email = useRef()
     const password = useRef()
@@ -45,12 +47,10 @@ function Login() {
                                             <input type="password" className="form-control" id="exampleFormControlTextarea1" ref={password} />
                                         </div>
                                     </div>
-                                    <button type="submit" disabled={isFetching} className="btn btn-primary mt-3 ">{
-                                        isFetching ? (<LoopIcon />) : ("Log In")
-                                    }</button>
+                                    <button type="submit" disabled={isFetching} className="btn btn-primary mt-3 ">Log In</button>
                                 </form>
                                 <hr />
-                                {isFetching ? (<LoopIcon />) : (
+                                {isFetching ? (<CircularProgress />) : (
                                     <p>Dont have an account?&nbsp;<NavLink to="/register">Sign up</NavLink></p>
                                 )}
 
