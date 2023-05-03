@@ -6,7 +6,6 @@ export const loginCall = async (userCredential, dispatch, navigate) => {
     dispatch({ type: "LOGIN_START" })
     try {
         const res = await axios.post(`${BASE_URL}/auth/login`, userCredential)
-        console.log(res.data)
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data })
 
         storeTokenInLocalStorage(res.data.accessToken)
@@ -27,7 +26,6 @@ export const getUser = async (token, dispatch) => {
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log("getuser", res.data)
         dispatch({ type: "LOGIN_SUCCESS", payload: res.data })
     } catch (err) {
         dispatch({ type: "LOGIN_FAILURE" })
@@ -36,7 +34,6 @@ export const getUser = async (token, dispatch) => {
 
 export const updateUser = async (dispatch, user) => {
     try {
-        console.log("userupdate", user)
         dispatch({ type: "UPDATE_USER", payload: user })
     } catch (err) {
         dispatch({ type: "UPDATE_FAILURE" })
@@ -50,7 +47,6 @@ export const register = async (userCredential, navigate, dispatch) => {
         dispatch({ type: "REGISTER_SUCCESS" })
         navigate("/login")
     } catch (err) {
-        console.log(err.response.data.msg)
         dispatch({ type: "REGISTER_FAILURE", payload: err.response.data.msg })
     }
 }
