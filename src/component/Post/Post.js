@@ -115,7 +115,7 @@ function Post({ post }) {
 
                             <h6>Likes: {like}</h6>
                             <div className="caption">
-                                <h6>{user.username}</h6>
+                                <h6>{user.username}</h6>&nbsp;
 
                                 <p>{post.desc}</p>
                             </div>
