@@ -21,7 +21,7 @@ export const loginCall = async (userCredential, dispatch, navigate) => {
 export const getUser = async (token, dispatch) => {
 
     try {
-        const res = await axios.get("http://localhost:9005/api/user/getUser", {
+        const res = await axios.get(`${BASE_URL}/user/getUser`, {
             headers: {
                 Authorization: `Bearer ${token}`
             }

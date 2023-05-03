@@ -6,6 +6,10 @@
     cursor: pointer;
 }
 
+.profilepic {
+    margin-top: -5px;
+}
+
 .edit_profile {
     margin-top: 15px;
 
