@@ -28,7 +28,6 @@ function Feed({ username }) {
                 setLoading(false)
             }
             else if (isAuthenticated) {
-                console.log("isauth")
                 res = await axios.get(`${BASE_URL}/post/filter`, {
                     headers: {
                         Authorization: `Bearer ${token}`,

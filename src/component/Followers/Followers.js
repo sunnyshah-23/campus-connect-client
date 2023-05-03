@@ -5,7 +5,6 @@ import { NavLink } from 'react-router-dom'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 function Followers({ friends }) {
-    console.log("followers", friends.username)
     return (
         <div className='followerss'>
             <div className='detail'>

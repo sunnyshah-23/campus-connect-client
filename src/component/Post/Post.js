@@ -45,7 +45,6 @@ function Post({ post }) {
 
             }
         }).then((res) => {
-            console.log(res)
             setPostComment(res.data)
 
         }).catch(err => console.log(err))

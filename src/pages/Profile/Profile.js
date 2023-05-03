@@ -15,7 +15,6 @@ function Profile() {
         const fetchUser = async () => {
             const res = await axios.get(`${BASE_URL}/user?username=${username}`);
             setUser(res.data);
-            console.log("profilepage-user", res.data)
         };
         fetchUser();
     }, [username]);

@@ -79,7 +79,6 @@ function AccountEdit() {
                     }
                 }).then((res) => {
                     setFile(null)
-                    console.log(res)
                     updateUser(dispatch, res.data)
                     toast("Profile Update")
                 }).catch(err => console.log(err))
