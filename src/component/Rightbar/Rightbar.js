@@ -50,13 +50,11 @@ function Rightbar({ user }) {
         }
     }
     const getFriends = async () => {
-        console.log("getfriends")
         const res = await axios.get(`${BASE_URL}/user/friends/` + user._id, {
             headers: {
                 Authorization: `Bearer ${token}`
             }
         })
-        console.log(res)
         setFollowings(res.data.friendList)
         setFollowers(res.data.followersList)
     }
