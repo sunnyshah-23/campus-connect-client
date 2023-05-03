@@ -77,7 +77,7 @@ function Rightbar({ user }) {
                             <img className="profilepicutre" src={'https://unh-server.onrender.com/images/' + user.profilePicture} />
                         ) : (
 
-                            <AccountCircleIcon className='profilepic' style={{ fontSize: "70px" }} />
+                            <AccountCircleIcon className='profilepic' style={{ fontSize: "70px", marginTop: "-5px" }} />
                         )}
                     </div>
                     <div className='col-md-4'>
