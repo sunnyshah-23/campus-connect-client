@@ -9,7 +9,7 @@ function Followers({ friends }) {
         <div className='followerss'>
             <div className='detail'>
                 {friends.profilePicture ? (
-                    <img src={"https://unh-server.onrender.com/images/" + friends.profilePicture} />
+                    <img src={"https://fair-puce-angelfish-sari.cyclic.app/images/" + friends.profilePicture} />
 
                 ) : (
                     <AccountCircleIcon className='profilepic' style={{ fontSize: "40px" }} />

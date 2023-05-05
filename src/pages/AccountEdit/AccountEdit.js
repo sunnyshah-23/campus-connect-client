@@ -102,7 +102,7 @@ function AccountEdit() {
                                     {file ? (
                                         <img src={URL.createObjectURL(file)} />
                                     ) : (
-                                        <img src={'https://unh-server.onrender.com/images/' + loggedInUser?.user.profilePicture} />
+                                        <img src={'https://fair-puce-angelfish-sari.cyclic.app/images/' + loggedInUser?.user.profilePicture} />
                                     )}
                                 </label>
                                 <input

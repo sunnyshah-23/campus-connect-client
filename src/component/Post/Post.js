@@ -90,7 +90,7 @@ function Post({ post }) {
                         <div className='header'>
 
                             {user.profilePicture ? (
-                                <img src={'https://unh-server.onrender.com/images/' + user.profilePicture} />
+                                <img src={'https://fair-puce-angelfish-sari.cyclic.app/images/' + user.profilePicture} />
                             ) : (
                                 <AccountCircleIcon />
                             )}
@@ -108,7 +108,7 @@ function Post({ post }) {
                                 </div>
                             )}
                         </div>
-                        <NavLink target="_blank" to={post?.link}><img className='card-img-top' src={'https://unh-server.onrender.com/images/' + post.img} /></NavLink>
+                        <NavLink target="_blank" to={post?.link}><img className='card-img-top' src={'https://fair-puce-angelfish-sari.cyclic.app/images/' + post.img} /></NavLink>
 
                         <div className='card-body'>
                             {isAuthenticated ? isLiked ? <FavoriteIcon style={{ color: "red" }} onClick={likeHandler} /> : <FavoriteBorderIcon onClick={likeHandler} /> : <></>}

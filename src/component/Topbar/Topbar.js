@@ -20,7 +20,7 @@ function Topbar() {
                 {isAuthenticated && <NavLink to="/create/post"><AddIcon style={{ color: "#ffffff", fontSize: 30 }} /></NavLink>}
                 {isAuthenticated && <NavLink to={`/profile/${user?.user?.username}`}>{user?.user?.profilePicture ? (
 
-                    <img src={'https://unh-server.onrender.com/images/' + user?.user.profilePicture} />
+                    <img src={'https://fair-puce-angelfish-sari.cyclic.app/images/' + user?.user.profilePicture} />
 
                 ) : (
                     <AccountCircleIcon style={{ fontSize: 40 }} />

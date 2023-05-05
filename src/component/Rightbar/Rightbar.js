@@ -74,7 +74,7 @@ function Rightbar({ user }) {
                 <div className='edit_profile row'>
                     <div className='col-md-4'>
                         {user.profilePicture ? (
-                            <img className="profilepicutre" src={'https://unh-server.onrender.com/images/' + user.profilePicture} />
+                            <img className="profilepicutre" src={'https://fair-puce-angelfish-sari.cyclic.app/images/' + user.profilePicture} />
                         ) : (
 
                             <AccountCircleIcon className='profilepic' style={{ fontSize: "70px", marginTop: "-5px" }} />
